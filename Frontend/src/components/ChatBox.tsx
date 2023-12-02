@@ -1,7 +1,7 @@
 "useClient";
 import React, { useState } from "react";
 
-const ChatBox = () => {
+const ChatBox = ({ data }: any) => {
   const [messages, setMessages] = useState<any>([]);
   const [currentMessage, setCurrentMessage] = useState<any>("");
 
@@ -15,13 +15,14 @@ const ChatBox = () => {
       setCurrentMessage("");
     }
   };
-
+  console.log(data, "signalData");
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 bg-blue-400 p-4 text-black text-center overflow-y-auto">
         {messages.map((message: any, index: any) => (
           <div key={index} className="mb-2">
-            {message}
+            {/* {message} */}
+            {data}
           </div>
         ))}
       </div>
