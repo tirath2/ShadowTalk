@@ -1,13 +1,14 @@
 "use client";
 import React, { useState } from "react";
 
-const Ads = () => {
+const Ads = ({ onSubmit }: { onSubmit: (data: string) => void }) => {
   const [currentMessage, setCurrentMessage] = useState<any>("");
 
   const handleInputChange = (e: any) => {
     setCurrentMessage(e.target.value);
   };
   const btnClickHandler = (e: any) => {
+    onSubmit(currentMessage);
     console.log(currentMessage, "currentMessage");
   };
   return (
