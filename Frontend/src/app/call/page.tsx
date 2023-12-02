@@ -20,6 +20,18 @@ const page = () => {
         offerToReceiveVideo: true,
         offerToReceiveAudio: true,
       },
+      config: {
+        iceServers: [
+          {
+            urls: "stun:freestun.net:3479",
+          },
+          {
+            urls: "turn:freestun.net:3479",
+            credential: " ",
+            username: " ",
+          },
+        ],
+      },
     };
     if (streams?.length) {
       config.stream = streams;
