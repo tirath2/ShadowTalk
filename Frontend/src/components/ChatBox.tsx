@@ -15,7 +15,6 @@ const ChatBox = ({ data }: any) => {
       setCurrentMessage("");
     }
   };
-  console.log(data, "signalData");
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 bg-blue-400 p-4 text-black text-center overflow-y-auto">

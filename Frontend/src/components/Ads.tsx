@@ -9,7 +9,6 @@ const Ads = ({ onSubmit }: { onSubmit: (data: string) => void }) => {
   };
   const btnClickHandler = (e: any) => {
     onSubmit(currentMessage);
-    console.log(currentMessage, "currentMessage");
   };
   return (
     <div>

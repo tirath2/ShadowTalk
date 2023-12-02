@@ -9,30 +9,52 @@ const page = () => {
   const [answer, setAnswer] = useState<string>();
   const pear: any = useRef(null);
   var remoteVideo = useRef<any>(null);
+  var localVideo = useRef<any>(null);
 
-  const createPear = () => {
-    pear.current = new SimplePeer({ initiator: true, trickle: false });
+  const createPear = async () => {
+    let streams: MediaStream | null = await createVideoStream();
+    const config: any = {
+      initiator: true,
+      trickle: false,
+      offerConstraints: {
+        offerToReceiveVideo: true,
+        offerToReceiveAudio: true,
+      },
+    };
+    if (streams?.length) {
+      config.stream = streams;
+    }
+    pear.current = new SimplePeer(config);
+    addMedia(streams);
 
     pearListeners();
     console.log("createPear");
   };
 
-  const addMedia = (stream) => {
-    console.log("calledaddMedia", stream);
+  const addMedia = (stream: MediaStream) => {
     pear.current.addStream(stream);
+    let video = localVideo.current;
+    if (video) {
+      video.srcObject = stream;
+      video.addEventListener("loadedmetadata", () => {
+        video.play();
+      });
+    }
   };
 
-  const createVideoStream = () => {
+  const createVideoStream = async () => {
     // then, anytime later...
-    navigator.mediaDevices
-      .getUserMedia({
+
+    try {
+      const track = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true,
-      })
-      .then(addMedia)
-      .catch((e) => {
-        console.log(e);
       });
+      return track;
+      // addMedia(track);
+    } catch (error) {
+      return null;
+    }
   };
 
   const pearListeners = () => {
@@ -47,6 +69,10 @@ const page = () => {
     pear?.current.on("connect", () => {
       console.log("Connected to peer!");
       createVideoStream();
+    });
+
+    pear?.current.on("track", (track, stream) => {
+      console.log("trackscalled");
     });
 
     pear?.current.on("stream", (stream: MediaStream) => {
@@ -83,7 +109,7 @@ const page = () => {
       </div>
       <div className="flex-1 flex">
         <div className="flex-1 bg-gray-300 p-4 text-[black] text-center ">
-          Video Box 2
+          <video ref={localVideo} className="flex flex-1" />
         </div>
         <div className="flex-1 bg-blue-400 p-4 text-[black] text-center ">
           Chat Box
