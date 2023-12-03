@@ -20,8 +20,8 @@ const ChatBox = ({ data }: any) => {
       <div className="flex-1 bg-blue-400 p-4 text-black text-center overflow-y-auto">
         {messages.map((message: any, index: any) => (
           <div key={index} className="mb-2">
-            {/* {message} */}
-            {data}
+            {message}
+            {/* {data} */}
           </div>
         ))}
       </div>
