@@ -4,6 +4,8 @@ import ChatBox from "@/components/ChatBox";
 import { Halant } from "next/font/google";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import SimplePeer from "simple-peer";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 const page = () => {
   const [offer, setOffer] = useState<string>();
@@ -13,6 +15,23 @@ const page = () => {
 
   var remoteVideo = useRef<any>(null);
   var localVideo = useRef<any>(null);
+
+  useEffect(() => {
+    try {
+      const apiUrl = "";
+      const body = {
+        offer: offer,
+        id: uuidv4(),
+      };
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      const response: any = axios.post(apiUrl, body, { headers });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error making API request:", error);
+    }
+  }, []);
 
   const createPear = async () => {
     console.log("iam calkked", Date.now());
@@ -146,7 +165,7 @@ const page = () => {
   return (
     <div className="flex flex-col h-screen">
       <div className="flex-1 flex">
-        <div className="flex-1 bg-pink-100 p-4 text-[black] text-center ">
+        <div className="flex-1 bg-pink-100 p-4 text-[black] text-center !min-w-[50%] ">
           Video Box 1
           <video ref={remoteVideo} className="flex flex-1" />
         </div>
@@ -155,10 +174,10 @@ const page = () => {
         </div>
       </div>
       <div className="flex-1 flex">
-        <div className="flex-1 bg-gray-300 p-4 text-[black] text-center ">
+        <div className="flex-1 bg-gray-300 p-4 text-[black] text-center !min-w-[50%]">
           <video ref={localVideo} className="flex flex-1" />
         </div>
-        <div className="flex-1 bg-blue-400 p-4 text-[black] text-center ">
+        <div className="flex-1 bg-blue-400 p-4 text-[black] text-center !max-w-[50%]  h-[100%]">
           Chat Box
           <ChatBox data={answer || offer} />
         </div>
