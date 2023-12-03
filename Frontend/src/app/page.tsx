@@ -115,8 +115,6 @@ export default function Home() {
             : "bg-gray-300 cursor-not-allowed"
         } text-white font-bold py-2 px-4 rounded`}
         disabled={!isChecked}
-        onMouseEnter={() => setChecked(true)}
-        onMouseLeave={() => setChecked(false)}
       >
         Start Chat
       </button>

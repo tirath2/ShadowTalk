@@ -20,25 +20,24 @@ const ChatBox = ({ data }: any) => {
       <div className="flex-1 bg-blue-400 p-4 text-black text-center overflow-y-auto">
         {messages.map((message: any, index: any) => (
           <div key={index} className="mb-2">
-            {/* {message} */}
-            {data}
+            {message}
+            {/* {data} */}
           </div>
         ))}
       </div>
-      <div className="bg-blue-400 p-4 text-black text-center">
-        <input
-          type="text"
-          className="w-full px-4 py-2 rounded-full border-2 border-gray-300 focus:outline-none focus:border-blue-500"
-          placeholder="Type your message..."
-          value={currentMessage}
-          onChange={handleInputChange}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              handleSendMessage();
-            }
-          }}
-        />
-      </div>
+
+      <input
+        type="text"
+        className="w-full px-4 py-2 rounded-full border-2 border-gray-300 focus:outline-none focus:border-blue-500"
+        placeholder="Type your message..."
+        value={currentMessage}
+        onChange={handleInputChange}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            handleSendMessage();
+          }
+        }}
+      />
     </div>
   );
 };

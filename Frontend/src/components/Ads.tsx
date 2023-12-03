@@ -15,7 +15,7 @@ const Ads = ({ onSubmit }: { onSubmit: (data: string) => void }) => {
       <div className="bg-yellow-200 p-4 text-black text-center">
         <h2 className="text-lg font-bold mb-2">Advertisement</h2>
         <p className="text-sm">Check out our amazing deals!</p>
-        <input
+        {/* <input
           type="text"
           className="w-full px-4 py-2 rounded-full border-2 border-gray-300 focus:outline-none focus:border-blue-500"
           placeholder="Type your message..."
@@ -29,7 +29,7 @@ const Ads = ({ onSubmit }: { onSubmit: (data: string) => void }) => {
           }
         >
           Submit
-        </button>
+        </button> */}
       </div>
     </div>
   );
