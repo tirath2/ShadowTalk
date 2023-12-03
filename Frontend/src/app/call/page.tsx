@@ -17,21 +17,44 @@ const page = () => {
   var localVideo = useRef<any>(null);
 
   useEffect(() => {
-    try {
-      const apiUrl = "";
-      const body = {
-        offer: offer,
-        id: uuidv4(),
-      };
-      const headers = {
-        "Content-Type": "application/json",
-      };
-      const response: any = axios.post(apiUrl, body, { headers });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error making API request:", error);
+    if (offer) {
+      try {
+        const apiUrl = "";
+        const body = {
+          offer: offer,
+          id: uuidv4(),
+        };
+        const headers = {
+          "Content-Type": "application/json",
+        };
+        const response: any = axios.post(apiUrl, body, { headers });
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error making API request:", error);
+      }
+      console.log({ offer, id: uuidv4() }, "shiuefivuwesr");
     }
-  }, []);
+  }, [offer]);
+
+  useEffect(() => {
+    if (answer) {
+      try {
+        const apiUrl = "";
+        const body = {
+          answer: offer,
+          id: uuidv4(),
+        };
+        const headers = {
+          "Content-Type": "application/json",
+        };
+        const response: any = axios.post(apiUrl, body, { headers });
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error making API request:", error);
+      }
+      console.log({ offer, id: uuidv4() }, "shiuefivuwesr");
+    }
+  }, [answer]);
 
   const createPear = async () => {
     console.log("iam calkked", Date.now());
@@ -175,7 +198,7 @@ const page = () => {
       </div>
       <div className="flex-1 flex">
         <div className="flex-1 bg-gray-300 p-4 text-[black] text-center !min-w-[50%]">
-          <video ref={localVideo} className="flex flex-1" />
+          <video controls ref={localVideo} className="flex flex-1" />
         </div>
         <div className="flex-1 bg-blue-400 p-4 text-[black] text-center !max-w-[50%]  h-[100%]">
           Chat Box
