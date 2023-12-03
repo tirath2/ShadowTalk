@@ -1,4 +1,5 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+import { ConnectionStatus } from 'src/enums/connection-status.enum';
 
 export class UserInfo {
   @IsString()
@@ -6,4 +7,18 @@ export class UserInfo {
   id: string;
 
   tags: string[];
+
+  @IsString()
+  offer: string;
+
+  @IsString()
+  @IsOptional()
+  answer: string;
+
+  @IsOptional()
+  @IsString()
+  remoteOffer: string;
+
+  @IsOptional()
+  status: ConnectionStatus;
 }

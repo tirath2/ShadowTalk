@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
+import { UserInfo } from 'src/dtos/user-info.dto';
 
 @Injectable()
 export class RedisService {
@@ -14,10 +15,10 @@ export class RedisService {
     });
   }
 
-  async storeUserInfo(id: string, userInfo: any): Promise<void> {
+  async storeUserInfo(id: string, userInfo: UserInfo): Promise<void> {
     const key = `user:${id}`;
     const value = JSON.stringify(userInfo);
-
+    console.log('save Value', value);
     // Store user information in Redis with an expiration time (optional)
     await this.redisClient.set(key, value, 'EX', 3600); // Expires in 1 hour (adjust as needed)
   }
@@ -35,10 +36,18 @@ export class RedisService {
     console.log(userKeys);
     // Fetch data for each user key
     const usersData = await Promise.all(
-      userKeys.map(async (key) => JSON.parse(await this.redisClient.get(key))),
+      userKeys.map(async (key) => {
+        const u = await this.redisClient.get(key);
+        console.log({ u });
+        if (u) {
+          return JSON.parse(u);
+        }
+      }),
     );
 
-    return usersData;
+    console.log(usersData?.filter((item) => item));
+
+    return usersData?.filter((item) => item);
   }
 
   async removeUserInfo(id: string): Promise<void> {
