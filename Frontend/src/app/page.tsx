@@ -117,7 +117,6 @@ export default function Home() {
         disabled={!isChecked}
         onMouseEnter={() => setChecked(true)}
         onMouseLeave={() => setChecked(false)}
-        style={{ transform: isChecked ? "translateX(50px)" : "translateX(0)" }}
       >
         Start Chat
       </button>
